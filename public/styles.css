@@ -1,0 +1,23 @@
+.jumbotron {
+    background-image: url("./images/01.jpg");
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+    color: white;
+    text-align: center;
+    height: 500px;
+}
+
+.scrapeBtn {
+    margin-top: 70px;
+}
+
+body {
+    background-image: url("./images/02.jpg");
+}
+
+.article {
+    color: white;
+    border: solid 5px;
+    background-color: grey;
+}
