@@ -24,6 +24,9 @@ $(document).on("click", ".commentBtn", function () {
     console.log(thisId);
 
     $("#modalTitle").empty();
+    $("#articleComments").empty();
+    $("#message-text").empty();
+
 
     $.ajax({
         method: "GET",
@@ -31,10 +34,12 @@ $(document).on("click", ".commentBtn", function () {
     })
         .then(function (data) {
             console.log(data);
+            console.log(data.comment);
             $(".modal-body").prepend("<h2 id='modalTitle'>" + data.title + "</h2>");
+            $(".submitBtn").attr("data-id", thisId);
 
-            if (data.Comment) {
-                $("#articleComments").val(data.Comment.body);
+            if (data.comment) {
+                $("#articleComments").append("<p class='border border-dark' id='comment'>"+data.comment.body+"<button type='button' class='btn btn-danger deleteBtn'>X</button></p>");
             }
         });
 });

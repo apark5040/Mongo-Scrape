@@ -38,6 +38,16 @@ module.exports = function (app) {
         });
     });
 
+    //DELETE route to delete comment
+    app.delete("/article/:id", function (req, res) {
+        db.Comment.findByIdAndDelete({_id:req.params.id})
+        .then(function (deleted){
+            res.json(deleted);
+        }).catch(function (error){
+            res.json(error);
+        });
+    });
+
     //Scrapes the latest articles. 
     app.post("/scrape", function (req, res) {
         request("http://www.siliconera.com/", function (error, response, html) {

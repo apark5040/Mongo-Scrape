@@ -40,6 +40,10 @@ body {
     float: left;
 }
 
-#modalTitle {
+#modalTitle, #comment {
     text-align: center;
+}
+
+.deleteBtn {
+    margin-left: 20%
 }
