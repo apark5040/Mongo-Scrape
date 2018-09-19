@@ -9,7 +9,7 @@ var apiRoutes = require("./routes/apiRoutes.js");
 
 var db = require("./models");
 
-var PORT = PROCESS.ENV.PORT || 3000;
+var PORT = process.env.PORT || 3000;
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
