@@ -9,7 +9,7 @@ var apiRoutes = require("./routes/apiRoutes.js");
 
 var db = require("./models");
 
-var PORT = 3000;
+var PORT = PROCESS.ENV.PORT || 3000;
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,7 +24,7 @@ app.engine(
 app.set("view engine", "handlebars");
 
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoscrape";
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
