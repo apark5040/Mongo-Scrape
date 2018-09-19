@@ -18,17 +18,19 @@ module.exports = function (app) {
 
     //GET route to get article based on id
     app.get("/article/:id", function (req, res) {
-        db.Article.find({ _id: req.params.id }).populate("Comment").then(function (dbArticle) {
-            res.json(dbArticle);
-        }).catch(function (err) {
-            res.json(err);
-        });
+        db.Article.findOne({ _id: req.params.id })
+            .populate("comment")
+            .then(function (dbArticle) {
+                res.json(dbArticle);
+            }).catch(function (err) {
+                res.json(err);
+            });
     });
 
     //POST route to saving comment on specific article
     app.post("/article/:id", function (req, res) {
         db.Comment.create(req.body).then(function (dbComment) {
-            return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbComment._id }, { new: true });
+            return db.Article.findOneAndUpdate({ _id: req.params.id }, { comment: dbComment._id }, { new: true });
         }).then(function (updated) {
             res.json(updated);
         }).catch(function (error) {
@@ -37,11 +39,11 @@ module.exports = function (app) {
     });
 
     //Scrapes the latest articles. 
-    app.get("/scrape", function (req, res) {
+    app.post("/scrape", function (req, res) {
         request("http://www.siliconera.com/", function (error, response, html) {
             var $ = cheerio.load(html);
 
-            var articles = [];
+            // var articles = [];
 
             $("div.post").each(function (i, element) {
                 var result = {};
@@ -53,13 +55,18 @@ module.exports = function (app) {
                 //images using wordpress uses lazy-loading. Use 'data-cfsrc' instead of 'src'
                 result.image = $(this).children("a").children("img").attr("data-cfsrc");
 
-                articles.push(result);
+                // articles.push(result);
+
+                db.Article.create(result)
+                    .then(function (dbArticle) {
+                        console.log(dbArticle);
+                    })
+                    .catch(function (err) {
+                        return res.json(err);
+                    });
             });
-            res.json(articles);
+            // res.json(articles);
         });
     });
-
-
-
 
 };

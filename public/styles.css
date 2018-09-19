@@ -12,12 +12,34 @@
     margin-top: 70px;
 }
 
+.article {
+    margin-top: 15px;
+}
+
+.imageScrape {
+    margin-right: 10px;
+}
+
 body {
     background-image: url("./images/02.jpg");
 }
 
-.article {
+.articleScrape {
     color: white;
     border: solid 5px;
     background-color: grey;
+    margin: 10px;
+    border-radius: 25px;
+}
+
+.commentBtn {
+    border-radius: 25px;
+}
+
+.imageScrape {
+    float: left;
+}
+
+#modalTitle {
+    text-align: center;
 }
