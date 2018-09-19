@@ -23,7 +23,13 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
-mongoose.connect("mongodb://localhost/mongoscrape");
+var databaseUri = "mongodb://localhost/mongoscrape";
+
+if(process.env.MONGODB_URI) {
+    mongoose.connect(process.env.MONGODB_URI);
+} else {
+    mongoose.connect(databaseUri);
+}
 
 htmlRoutes(app);
 apiRoutes(app);
