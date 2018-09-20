@@ -8,8 +8,8 @@
     height: 500px;
 }
 
-.scrapeBtn {
-    margin-top: 70px;
+.scrapeBtn, .removeBtn {
+    margin-top: 50px;
 }
 
 .article {

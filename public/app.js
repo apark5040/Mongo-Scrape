@@ -10,11 +10,22 @@ $.getJSON("/article", function (data) {
 
 $(".scrapeBtn").on("click", function () {
     $.ajax({
-        method: "POST",
-        url: "/scrape",
-    }).done(function (data) {
+        method: "GET",
+        url: "/scrape"
+    })
+    .then(function(data){
         location.reload();
         console.log(data);
+    });
+});
+
+$(".removeBtn").on("click", function() {
+    $.ajax({
+        method: "DELETE",
+        url: "/article",
+    }).then(function (data) {
+        console.log(data);
+        location.reload();
     });
 });
 
@@ -25,7 +36,7 @@ $(document).on("click", ".commentBtn", function () {
 
     $("#modalTitle").empty();
     $("#articleComments").empty();
-    $("#message-text").empty();
+    $("#message-text").val("");
 
 
     $.ajax({
@@ -38,8 +49,10 @@ $(document).on("click", ".commentBtn", function () {
             $(".modal-body").prepend("<h2 id='modalTitle'>" + data.title + "</h2>");
             $(".submitBtn").attr("data-id", thisId);
 
-            if (data.comment) {
-                $("#articleComments").append("<p class='border border-dark' id='comment'>"+data.comment.body+"<button type='button' class='btn btn-danger deleteBtn'>X</button></p>");
+            if (!data.comment.length == 0) {
+                for(var i = 0; i<data.comment.length; i++){
+                    $("#articleComments").append("<p class='border border-dark' id='comment'>"+data.comment[i].body+"<button data-dismiss='modal' data-id='"+data.comment[i]._id+"'type='button' class='btn btn-danger deleteBtn'>X</button></p>");
+                }
             }
         });
 });
@@ -58,6 +71,23 @@ $(document).on("click", ".submitBtn", function () {
     })
         .then(function (data) {
             console.log(data);
+            $("#message-text").empty();
+        });
+});
+
+$(document).on("click", ".deleteBtn", function(){
+    var deleteId = $(this).attr("data-id");
+    var articleId = $(".submitBtn").attr("data-id");
+
+    $.ajax({
+        method: "DELETE",
+        url: "/article/"+deleteId,
+        data: {
+            articleId: articleId
+        }
+    })
+        .then(function(data){
+            console.log("Deleted");
         });
 });
 
