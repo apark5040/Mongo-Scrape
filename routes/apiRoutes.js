@@ -78,10 +78,13 @@ module.exports = function (app) {
                 result.link = $(this).children("h2.title").children("a").attr("href");
 
                 //images using wordpress uses lazy-loading. If 'src' doesn't work, use 'data-cfsrc'
-                result.image = $(this).children("a").children("img").attr("src");
-
-                // articles.push(result);
-
+                if($(this).children("a").children("img").attr("src")){
+                    result.image = $(this).children("a").children("img").attr("src");
+                }
+                else if($(this).children("a").children("img").attr("data-cfsrc")) {
+                    result.image = $(this).children("a").children("img").attr("data-cfsrc");
+                }
+                
                 db.Article.findOne({ title: result.title }).then(function (dbArticle) {
                     if (dbArticle) {
                         console.log("Already exists");

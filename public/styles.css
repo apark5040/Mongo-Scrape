@@ -14,10 +14,15 @@
 
 .article {
     margin-top: 15px;
+    margin-left: 15px;
 }
 
 .imageScrape {
-    margin-right: 10px;
+    border-radius: 20px;
+}
+
+h2 {
+    text-align: center;
 }
 
 body {
@@ -27,13 +32,14 @@ body {
 .articleScrape {
     color: white;
     border: solid 5px;
-    background-color: grey;
+    background-color: #246b91;
     margin: 10px;
     border-radius: 25px;
 }
 
-.commentBtn {
-    border-radius: 25px;
+.commentBtn, linkBtn {
+    border-radius: 20px;
+    margin-top: 10px;
 }
 
 .imageScrape {
