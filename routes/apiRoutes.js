@@ -85,6 +85,7 @@ module.exports = function (app) {
                     result.image = $(this).children("a").children("img").attr("data-cfsrc");
                 }
                 
+                //This checks for any duplicate articles in the database of the same title. 
                 db.Article.findOne({ title: result.title }).then(function (dbArticle) {
                     if (dbArticle) {
                         console.log("Already exists");

@@ -4,6 +4,7 @@ $.getJSON("/article", function (data) {
     for (var i = 0; i < data.length; i++) {
         var newDiv = $("<div class='articleScrape row'>");
         newDiv.append("<img class='imageScrape' src=" + data[i].image + "><h3>" + data[i].title + "</h3><br><p class='col-md-10 article'>" + data[i].summary + "</p><br>");
+        newDiv.append("<a href='"+data[i].link+"'>Original URL</a>");
         newDiv.append("<button data-toggle='modal' data-target='#exampleModal' type='button' data-id=" + data[i]._id + " class='col-md-2 commentBtn btn btn-info'>Comment</button>");
         // newDiv.append("<button type='button' class='col-md-2 linkBtn btn btn-info'><a href="+data[i].link+">Link</a></button>");
         $(".articleList").append(newDiv);
